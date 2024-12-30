@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manual Fuel Calculator</title>
+    <style>
+        /* General Reset */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body Styles */
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #4e54c8, #8f94fb);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Container Styles */
+        .container {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 1.8em;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin: 15px 0 5px;
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #555;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 1em;
+        }
+
+        select:focus, input:focus, button:focus {
+            outline: none;
+            border: 1px solid #4e54c8;
+        }
+
+        button {
+            background: #4e54c8;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s ease;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background: #3a3fcb;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            color: green;
+        }
+
+        .footer {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Manual Fuel Calculator</h1>
+        <label for="fuelType">Select Fuel Type:</label>
+        <select id="fuelType">
+            <option value="Unleaded">Unleaded</option>
+            <option value="Premium 95">Premium 95</option>
+            <option value="Premium 98">Premium 98</option>
+            <option value="Diesel">Diesel</option>
+        </select>
+        
+        <label for="money">Money Paid ($):</label>
+        <input type="number" id="money" placeholder="Enter the amount paid">
+
+        <label for="pricePerLiter">Price Per Liter (Cents):</label>
+        <input type="number" id="pricePerLiter" placeholder="Enter price in cents">
+
+        <button onclick="calculateFuel()">Calculate Fuel</button>
+        
+        <div class="result" id="result"></div>
+        
+        <div class="footer">Powered by AHSAN</div>
+    </div>
+
+    <script>
+        function calculateFuel() {
+            const fuelType = document.getElementById("fuelType").value;
+            const money = parseFloat(document.getElementById("money").value);
+            const pricePerLiterCents = parseFloat(document.getElementById("pricePerLiter").value);
+
+            if (!money || !pricePerLiterCents || pricePerLiterCents <= 0) {
+                document.getElementById("result").innerText = "Please enter valid money and price values.";
+                document.getElementById("result").style.color = "red";
+                return;
+            }
+
+            const pricePerLiter = pricePerLiterCents / 100;
+            const fuelAmount = (money / pricePerLiter).toFixed(2);
+
+            document.getElementById("result").innerText = 
+                `The fuel amount to be charged for ${fuelType} is: ${fuelAmount} liters.`;
+            document.getElementById("result").style.color = "green";
+        }
+    </script>
+</body>
+</html>
